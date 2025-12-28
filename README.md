@@ -76,6 +76,62 @@ HTML5 | CSS3 | Vanilla JavaScript
 - Expression evaluation
 - Error handling with try-catch blocks
 
+#### 🚀 Future Implementations
+- 📊 History of calculations with ability to reuse previous results
+- 🌙 Dark/Light theme toggle
+- ⌨️ Keyboard support for calculator inputs
+- 📐 Scientific calculator mode with advanced functions (sin, cos, tan, log, etc.)
+- 💾 Memory functions (M+, M-, MR, MC)
+- 📱 Progressive Web App (PWA) capabilities for offline use
+
+---
+
+### 2️⃣ To-Do List App
+
+<img src="https://img.icons8.com/fluency/96/todo-list.png" alt="To-Do List" width="80"/>
+
+A comprehensive task management application with deadline tracking and local storage persistence.
+
+**Features:**
+- ✅ Add tasks with name, deadline (date & time), and description
+- 🔄 Mark tasks as complete/incomplete
+- 🗑️ Delete individual tasks
+- 🧹 Clear all tasks at once
+- 💾 Persistent storage using localStorage
+- 🎯 Automatic sorting (incomplete tasks first, completed tasks last)
+- 🎨 Visual differentiation for completed tasks
+- ⚠️ Duplicate task name prevention
+- 📝 Detailed task descriptions with expandable view
+
+**Tech Stack:**
+```
+HTML5 | CSS3 | Vanilla JavaScript | LocalStorage API
+```
+
+**Live Demo:** Open `MiniProject-2/index.html` in your browser
+
+**Key Learnings:**
+- LocalStorage API for data persistence
+- Array manipulation and sorting algorithms
+- Event delegation for dynamic elements
+- Form validation and user input handling
+- CRUD operations in JavaScript
+- Dynamic DOM manipulation
+- CSS styling for different states
+
+#### 🚀 Future Implementations
+- 🏷️ Task categories and tags for better organization
+- 🔍 Search and filter functionality
+- 📊 Priority levels (High, Medium, Low)
+- 📅 Calendar view for deadline visualization
+- ⏰ Notifications/reminders for upcoming deadlines
+- 📤 Export tasks to JSON/CSV format
+- 📥 Import tasks from files
+- 🌈 Customizable themes and color schemes
+- ✏️ Edit existing tasks without deleting
+- 📱 Responsive design for mobile devices
+- ☁️ Cloud sync with backend integration
+
 ---
 
 ## 🚀 Getting Started
@@ -117,8 +173,15 @@ MiniProjects-Using-Basic-Full-Stack-Web-Development/
 │
 ├── README.md
 │
-└── MiniProject-1/              # Calculator App
+├── MiniProject-1/              # Calculator App
+│   ├── index.html              # Main HTML file
+│   └── styles/
+│       └── style.css           # Styling
+│
+└── MiniProject-2/              # To-Do List App
     ├── index.html              # Main HTML file
+    ├── scripts/
+    │   └── script.js           # Application logic
     └── styles/
         └── style.css           # Styling
 ```
@@ -146,6 +209,12 @@ Through these projects, you'll learn:
 - ✅ CSS Flexbox for layouts
 - ✅ Error handling and validation
 - ✅ Clean code practices
+- ✅ Working with Web Storage API (localStorage)
+- ✅ CRUD operations in frontend applications
+- ✅ Array methods and functional programming
+- ✅ Form handling and user input validation
+- ✅ State management in vanilla JavaScript
+- ✅ Event delegation patterns
 
 ---
 

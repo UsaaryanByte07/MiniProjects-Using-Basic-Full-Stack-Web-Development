@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styles/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <form action="" class="task-form">
+        <div class="heading-text">Your Own To Do List</div>
+        <div class="task-name-input-container">
+        <label for="task-name">Task Name</label><br>
+        <input type="text" name="task-name" id="task-name" placeholder="Enter the Task Name"/>
+        </div>
+        <div class="due-date-container">
+        <label for="due_date">Due Date</label><br>
+        <input type="date" name="due-date" id="due-date" />
+        </div>
+        <div class="due-time-container">
+        <label for="due-time">Due Time</label><br>
+        <input type="time" name="due-time" id="due-time"/>
+        </div>
+        <div class="task-description-input-container">
+        <label for="task-description">Task Description</label><br>
+        <textarea name="task-description" id="task-description" placeholder="Enter the Task Description"></textarea>
+        </div>
+        <input type="button" value="Add Task" class="task-add-btn" />
+        <input type="button" value="Clear All Task" class="all-task-clear-btn">
+      </form>
+      <div class="tasks-container">
+        <div class="task-card">
+          <div class="task-name-container task-primary-details">Task Name</div>
+          <div class="task-datetime-container task-primary-details">
+            Date and Time
+          </div>
+          <div class="task-description-container task-secondary-details">
+            <div class="task-description-heading">Task Description</div><br />
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque,
+            similique perferendis recusandae itaque corrupti expedita
+            repellendus qui harum rerum nihil necessitatibus consectetur vitae
+            facilis hic vel? Maiores in assumenda vitae totam ut nisi debitis
+            quasi qui voluptatibus recusandae exercitationem laudantium,
+            voluptatem magnam voluptates porro voluptas. Voluptatibus architecto
+            illum corrupti consequatur aut nam ea quasi commodi excepturi
+            laudantium iste aperiam sed, atque omnis rem iusto deserunt et
+            reprehenderit ad perferendis? Molestiae?
+          </div>
+          <button class="delete-task task-edit-btns">Delete</button>
+          <button class="completed-task task-edit-btns">Completed</button>
+        </div>
+        <div class="task-card">
+          <div class="task-name-container task-primary-details">Task Name</div>
+          <div class="task-datetime-container task-primary-details">
+            Date and Time
+          </div>
+          <div class="task-description-container task-secondary-details">
+            <div class="task-description-heading">Task Description</div><br>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Et,
+            dignissimos magni illum quam nemo ducimus maiores soluta cumque eum
+            accusamus assumenda libero dolorem voluptate quis? Sapiente
+            asperiores quam sunt quod eos in ipsa eveniet labore quis provident,
+            illo tenetur, facilis explicabo dolorum accusamus doloremque quos
+            voluptatibus ad magni. Aut ad accusantium saepe veniam iste,
+            asperiores, laboriosam dolorem tempore dicta aspernatur praesentium
+            molestias hic ratione similique, rem at consequuntur fuga quod?
+          </div>
+          <button class="delete-task task-edit-btns">Delete</button>
+          <button class="completed-task task-edit-btns">Completed</button>
+        </div>
+        <div class="task-card">
+          <div class="task-name-container task-primary-details">Task Name</div>
+          <div class="task-datetime-container task-primary-details">
+            Date and Time
+          </div>
+          <div class="task-description-container task-secondary-details">
+            <div class="task-description-heading">Task Description</div><br>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Et,
+            dignissimos magni illum quam nemo ducimus maiores soluta cumque eum
+            accusamus assumenda libero dolorem voluptate quis? Sapiente
+            asperiores quam sunt quod eos in ipsa eveniet labore quis provident,
+            illo tenetur, facilis explicabo dolorum accusamus doloremque quos
+            voluptatibus ad magni. Aut ad accusantium saepe veniam iste,
+            asperiores, laboriosam dolorem tempore dicta aspernatur praesentium
+            molestias hic ratione similique, rem at consequuntur fuga quod?
+          </div>
+          <button class="delete-task task-edit-btns">Delete</button>
+          <button class="completed-task task-edit-btns">Completed</button>
+        </div>
+        <div class="task-card">
+          <div class="task-name-container task-primary-details">Task Name</div>
+          <div class="task-datetime-container task-primary-details">
+            Date and Time
+          </div>
+          <div class="task-description-container task-secondary-details">
+            <div class="task-description-heading">Task Description</div><br>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Et,
+            dignissimos magni illum quam nemo ducimus maiores soluta cumque eum
+            accusamus assumenda libero dolorem voluptate quis? Sapiente
+            asperiores quam sunt quod eos in ipsa eveniet labore quis provident,
+            illo tenetur, facilis explicabo dolorum accusamus doloremque quos
+            voluptatibus ad magni. Aut ad accusantium saepe veniam iste,
+            asperiores, laboriosam dolorem tempore dicta aspernatur praesentium
+            molestias hic ratione similique, rem at consequuntur fuga quod?
+          </div>
+          <button class="delete-task task-edit-btns">Delete</button>
+          <button class="completed-task task-edit-btns">Completed</button>
+        </div>
+        <div class="task-card task-card-status-complete">
+          <div class="task-name-container task-primary-details task-primary-details-status-complete">Task Name</div>
+          <div class="task-datetime-container task-primary-details task-primary-details-status-complete">
+            Date and Time
+          </div>
+          <div class="task-description-container task-secondary-details task-description-container-status-complete">
+            <div class="task-description-heading task-description-heading-status-complete">Task Description</div><br>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Et,
+            dignissimos magni illum quam nemo ducimus maiores soluta cumque eum
+            accusamus assumenda libero dolorem voluptate quis? Sapiente
+            asperiores quam sunt quod eos in ipsa eveniet labore quis provident,
+            illo tenetur, facilis explicabo dolorum accusamus doloremque quos
+            voluptatibus ad magni. Aut ad accusantium saepe veniam iste,
+            asperiores, laboriosam dolorem tempore dicta aspernatur praesentium
+            molestias hic ratione similique, rem at consequuntur fuga quod?
+          </div>
+          <button class="delete-task task-edit-btns task-edit-btns-status-complete">Delete</button>
+          <button class="completed-task task-edit-btns task-edit-btns-status-complete">Completed</button>
+        </div>
+        <div class="task-card">
+          <div class="task-name-container task-primary-details">Task Name</div>
+          <div class="task-datetime-container task-primary-details">
+            Date and Time
+          </div>
+          <div class="task-description-container task-secondary-details">
+            <div class="task-description-heading">Task Description</div><br>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Et,
+            dignissimos magni illum quam nemo ducimus maiores soluta cumque eum
+            accusamus assumenda libero dolorem voluptate quis? Sapiente
+            asperiores quam sunt quod eos in ipsa eveniet labore quis provident,
+            illo tenetur, facilis explicabo dolorum accusamus doloremque quos
+            voluptatibus ad magni. Aut ad accusantium saepe veniam iste,
+            asperiores, laboriosam dolorem tempore dicta aspernatur praesentium
+            molestias hic ratione similique, rem at consequuntur fuga quod?
+          </div>
+          <button class="delete-task task-edit-btns">Delete</button>
+          <button class="completed-task task-edit-btns">Completed</button>
+        </div>
+        <div class="task-card">
+          <div class="task-name-container task-primary-details">Task Name</div>
+          <div class="task-datetime-container task-primary-details">
+            Date and Time
+          </div>
+          <div class="task-description-container task-secondary-details">
+            <div class="task-description-heading">Task Description</div><br>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Et,
+            dignissimos magni illum quam nemo ducimus maiores soluta cumque eum
+            accusamus assumenda libero dolorem voluptate quis? Sapiente
+            asperiores quam sunt quod eos in ipsa eveniet labore quis provident,
+            illo tenetur, facilis explicabo dolorum accusamus doloremque quos
+            voluptatibus ad magni. Aut ad accusantium saepe veniam iste,
+            asperiores, laboriosam dolorem tempore dicta aspernatur praesentium
+            molestias hic ratione similique, rem at consequuntur fuga quod?
+          </div>
+          <button class="delete-task task-edit-btns">Delete</button>
+          <button class="completed-task task-edit-btns">Completed</button>
+        </div>
+      </div>
+    </div>
+    <script src="scripts/script.js"></script>
+  </body>
+</html>
