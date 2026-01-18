@@ -34,8 +34,8 @@ const ProjectsSection = () => {
     <>
       <div className="mt-10">
         <div className="mx-5 flex items-center">
-          <FolderGit2 size={35}/>
-          <h1 className="text-3xl font-bold mx-2">Projects</h1>
+          <FolderGit2 size={35} className="text-cyan-300"/>
+          <h1 className="text-3xl font-bold mx-2 text-white">Projects</h1>
         </div>
         <div className="mt-5">
           {projectsArray.map((project) => {
