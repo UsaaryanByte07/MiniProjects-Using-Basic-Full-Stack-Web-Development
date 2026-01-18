@@ -9,9 +9,9 @@ const AboutMeSection = () => {
           <h1 className="text-3xl font-bold mx-2 text-white">About Me</h1>
         </div>
         <div className="text-white/80 mx-6 my-3">
-          I'm a passionate full stack developer with 5 years of experience in
-          building web applications. I love creating efficient, scalable, and
-          user-friendly solutions to complex problems.
+          I'm a under graduate student who aspires to become a Full Stack
+          Developer. I love creating efficient, scalable, and user-friendly
+          solutions to complex problems.
         </div>
       </div>
     </>
