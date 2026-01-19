@@ -19,9 +19,9 @@ const HobbieSection = () => {
           </h1>
         </div>
         <div className="mx-12 my-3 text-white/80">
-          <ul>
+          <ul className="space-y-2">
             {hobbiesArray.map((hobby) => {
-              return <li className="list-disc px-3">{hobby}</li>;
+              return <li className="list-disc px-3 hover:text-cyan-300 transition-colors duration-200">{hobby}</li>;
             })}
           </ul>
         </div>

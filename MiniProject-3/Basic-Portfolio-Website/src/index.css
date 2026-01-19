@@ -6,3 +6,44 @@ html, body, #root {
   margin: 0;
   padding: 0;
 }
+
+/* Hide scrollbar while keeping scroll functionality */
+html::-webkit-scrollbar {
+  display: none;
+}
+
+html {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Global Dark Mode Styles */
+body {
+  @apply bg-gradient-to-br from-cyan-400 via-blue-500 to-purple-600;
+}
+
+/* Glassmorphism Effect Classes */
+.glass-container {
+  @apply bg-white/10 backdrop-blur-xl border border-white/20;
+}
+
+.glass-header {
+  @apply bg-gradient-to-r from-cyan-500/30 to-purple-500/30 backdrop-blur-md border-b border-white/20;
+}
+
+.glass-card {
+  @apply bg-white/10 backdrop-blur-md border border-white/20;
+}
+
+.glass-pill-cyan {
+  @apply bg-cyan-400/20 backdrop-blur-sm border border-cyan-300/30 text-cyan-100;
+}
+
+.glass-pill-purple {
+  @apply bg-purple-400/20 backdrop-blur-sm border border-purple-300/30 text-purple-100;
+}
+
+/* Smooth Transitions */
+.transition-smooth {
+  @apply transition-all duration-300 ease-in-out;
+}
