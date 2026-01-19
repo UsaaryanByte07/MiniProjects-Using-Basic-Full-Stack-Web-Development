@@ -27,20 +27,25 @@ Welcome to my **Full Stack Web Development Mini Projects** repository! This coll
 
 <table>
 <tr>
-<td width="33%" align="center">
+<td width="25%" align="center">
 <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg" width="60" height="60"/>
 <br><strong>Clean HTML</strong>
 <br>Semantic & accessible markup
 </td>
-<td width="33%" align="center">
+<td width="25%" align="center">
 <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original.svg" width="60" height="60"/>
 <br><strong>Modern CSS</strong>
 <br>Responsive & styled layouts
 </td>
-<td width="33%" align="center">
+<td width="25%" align="center">
 <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" width="60" height="60"/>
 <br><strong>Vanilla JS</strong>
 <br>Interactive functionality
+</td>
+<td width="25%" align="center">
+<img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg" width="60" height="60"/>
+<br><strong>React & Vite</strong>
+<br>Modern component architecture
 </td>
 </tr>
 </table>
@@ -134,6 +139,62 @@ HTML5 | CSS3 | Vanilla JavaScript | LocalStorage API
 
 ---
 
+### 3️⃣ Basic Portfolio Website
+
+<img src="https://img.icons8.com/fluency/96/portfolio.png" alt="Portfolio" width="80"/>
+
+A modern, responsive portfolio website built with React, Vite, and Tailwind CSS to showcase personal projects, skills, and experience.
+
+**Features:**
+- 🎨 Modern UI with gradient backgrounds and smooth animations
+- 📱 Fully responsive design for all devices
+- 🧩 Component-based architecture using React
+- ⚡ Lightning-fast development with Vite
+- 🎯 Multiple sections: Header, About Me, Skills, Education, Projects, Hobbies, Extracurricular, and Contact
+- 🎭 Interactive project cards with detailed information
+- 🏆 Educational achievements display
+- 🎨 Tech stack pills with visual indicators
+- 💼 Professional contact section
+- 🔧 Built with reusable React components
+
+**Tech Stack:**
+```
+React 19 | Vite | Tailwind CSS 4 | Lucide React Icons | ESLint
+```
+
+**Live Demo:** 
+```bash
+cd MiniProject-3/Basic-Portfolio-Website
+npm install
+npm run dev
+```
+
+**Key Learnings:**
+- Modern React with hooks and functional components
+- Component composition and reusability
+- Tailwind CSS utility-first styling
+- Vite build tool configuration
+- Project structure and organization
+- Props and state management
+- ESLint for code quality
+- Responsive design patterns
+
+#### 🚀 Future Implementations
+- 🌙 Dark/Light mode toggle with theme persistence
+- 🎞️ Smooth scroll animations and transitions
+- 📧 Contact form with email integration (EmailJS or similar)
+- 🗂️ Project filtering by technology/category
+- 📊 Skills proficiency visualization with charts
+- 💾 CMS integration for easy content updates
+- 🔍 SEO optimization with React Helmet
+- 📱 Progressive Web App (PWA) features
+- 🌐 Multi-language support (i18n)
+- 📈 Analytics integration (Google Analytics)
+- 🎨 Customizable color themes
+- 📥 Downloadable resume/CV feature
+
+---
+
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -141,6 +202,7 @@ HTML5 | CSS3 | Vanilla JavaScript | LocalStorage API
 - A modern web browser (Chrome, Firefox, Safari, or Edge)
 - Basic knowledge of HTML, CSS, and JavaScript
 - A code editor (VS Code recommended)
+- Node.js and npm (for React projects)
 
 ### Installation
 
@@ -158,11 +220,25 @@ HTML5 | CSS3 | Vanilla JavaScript | LocalStorage API
    ```bash
    # For Calculator App
    cd MiniProject-1
+   
+   # For To-Do List App
+   cd MiniProject-2
+   
+   # For Portfolio Website
+   cd MiniProject-3/Basic-Portfolio-Website
    ```
 
 4. **Run the project**
+   
+   **For MiniProject-1 & MiniProject-2:**
    - Simply open `index.html` in your web browser
    - Or use a local development server like Live Server in VS Code
+   
+   **For MiniProject-3 (React App):**
+   ```bash
+   npm install
+   npm run dev
+   ```
 
 ---
 
@@ -178,12 +254,27 @@ MiniProjects-Using-Basic-Full-Stack-Web-Development/
 │   └── styles/
 │       └── style.css           # Styling
 │
-└── MiniProject-2/              # To-Do List App
-    ├── index.html              # Main HTML file
-    ├── scripts/
-    │   └── script.js           # Application logic
-    └── styles/
-        └── style.css           # Styling
+├── MiniProject-2/              # To-Do List App
+│   ├── index.html              # Main HTML file
+│   ├── scripts/
+│   │   └── script.js           # Application logic
+│   └── styles/
+│       └── style.css           # Styling
+│
+└── MiniProject-3/              # Portfolio Website
+    └── Basic-Portfolio-Website/
+        ├── index.html          # Entry HTML
+        ├── package.json        # Dependencies
+        ├── vite.config.js      # Vite configuration
+        ├── eslint.config.js    # ESLint configuration
+        ├── public/             # Static assets
+        └── src/
+            ├── main.jsx        # App entry point
+            ├── App.jsx         # Main app component
+            ├── App.css         # App styles
+            ├── index.css       # Global styles
+            ├── assets/         # Images and media
+            └── components/     # React components
 ```
 
 ---
@@ -195,6 +286,9 @@ MiniProjects-Using-Basic-Full-Stack-Web-Development/
 | ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white) | Structure and content |
 | ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white) | Styling and layout |
 | ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black) | Interactivity and logic |
+| ![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black) | UI component library |
+| ![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat&logo=vite&logoColor=white) | Build tool and dev server |
+| ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white) | Utility-first CSS framework |
 
 ---
 
@@ -215,6 +309,12 @@ Through these projects, you'll learn:
 - ✅ Form handling and user input validation
 - ✅ State management in vanilla JavaScript
 - ✅ Event delegation patterns
+- ✅ Modern React development with hooks
+- ✅ Component-based architecture and reusability
+- ✅ Tailwind CSS utility-first approach
+- ✅ Build tools and module bundlers (Vite)
+- ✅ Package management with npm
+- ✅ Project configuration and setup
 
 ---
 
