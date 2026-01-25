@@ -133,11 +133,31 @@ function updateTaskStatus(taskName) {
 
 function deleteTask(taskName) {
   let taskArray = JSON.parse(localStorage.getItem("tasks"));
+  
+  /* USING filter() INSTEAD OF map():
+  The map() method creates a new array with the same length as the original, 
+  transforming each element. When we don't return anything for certain elements 
+  (like the task to be deleted), map() inserts 'undefined' at that position.
+  
+  This caused the error: "Cannot read properties of null (reading 'isComplete')"
+  because updateTaskListUI() tried to access task.isComplete on undefined values.
+  
+  The filter() method creates a new array containing only elements that pass 
+  the test (return true). It automatically excludes elements that fail the test, 
+  creating an array without gaps or undefined values - perfect for deletion.
+  */
+  
+  let newTaskArray = taskArray.filter((task) => task.taskName !== taskName);
+  
+  /* PREVIOUS CODE (BUGGY - kept for reference):
   let newTaskArray = taskArray.map((task) => {
     if (task.taskName != taskName) {
       return task;
     }
+    // BUG: No return statement here means 'undefined' is added to the array
   });
+  */
+  
   localStorage.setItem("tasks", JSON.stringify(newTaskArray));
 }
 
@@ -172,7 +192,7 @@ tasksContainer.addEventListener("click", (e) => {
 
   if (e.target.classList.contains("delete-task")) {
     let taskName = e.target.getAttribute("data-task-id");
-    let userConfirmation = prompt(
+    let userConfirmation = confirm(
       `Are you Sure that you want to Delete the Task "${taskName}" ..?`
     );
     if (userConfirmation) {
