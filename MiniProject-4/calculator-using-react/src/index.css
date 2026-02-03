@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+:root {
+  --neon-cyan: #00f3ff;
+  --neon-pink: #ff00ff;
+  --neon-yellow: #fcee0a;
+  --neon-red: #ff2a2a;
+  --bg-dark: #050505;
+  --bg-panel: #121212;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-dark); /* Ensure whole page is dark */
+  font-family: 'Courier New', Courier, monospace; /* Cyberpunkish font */
+}
+
+div:focus {
+  outline: none;
+}

@@ -54,7 +54,7 @@ Welcome to my **Full Stack Web Development Mini Projects** repository! This coll
 
 ## 🎯 Projects
 
-### 1️⃣ Calculator App
+### 1️⃣ Calculator App Using Vanilla JavaScript
 
 <img src="https://img.icons8.com/fluency/96/calculator.png" alt="Calculator" width="80"/>
 
@@ -195,6 +195,49 @@ npm run dev
 
 ---
 
+### 4️⃣ Calculator App Using React (Cyberpunk Edition)
+
+<img src="https://img.icons8.com/fluency/96/calculator.png" alt="React Calculator" width="80"/>
+
+A stylish and functional calculator application built with React and Tailwind CSS, featuring a distinctive Cyberpunk/Neon aesthetic.
+
+**Features:**
+- 🎨 **Cyberpunk UI:** Custom neon-glowing theme using Tailwind CSS and CSS variables.
+- ➕ **Core Functionality:** Handles addition, subtraction, multiplication, division, and decimals.
+- 🔙 **Edit Controls:** Includes 'Delete' (backspace) and 'Clear' features.
+- ⌨️ **Input Handling:** Supports both on-screen clicks and keyboard typing.
+- 🛡️ **Error Management:** Gracefully handles invalid expressions (e.g., division errors).
+- 🧩 **Component-Based:** Modular architecture using React functional components.
+
+**Tech Stack:**
+```
+React 19 | Vite | Tailwind CSS 4 | Lucide React Icons
+```
+
+**Live Demo:**
+```bash
+cd MiniProject-4/calculator-using-react
+npm install
+npm run dev
+```
+
+**Key Learnings:**
+- State management with `useState`
+- Event handling for both mouse and keyboard events
+- Advanced styling with Tailwind CSS and CSS variables
+- Implementing application logic within React components
+- Project structure and props drilling
+- Using Lucide for iconography
+
+#### 🚀 Future Implementations
+- 📜 History tape for past calculations
+- 🧮 Scientific calculator functions
+- 🔊 Sound effects on keypress
+- 🌓 Theme toggle logic (switching between Neon and Light mode)
+- 💾 Persistent memory storage
+
+---
+
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -275,6 +318,23 @@ MiniProjects-Using-Basic-Full-Stack-Web-Development/
             ├── index.css       # Global styles
             ├── assets/         # Images and media
             └── components/     # React components
+
+├── MiniProject-4/              # React Calculator App
+│   └── calculator-using-react/
+│       ├── index.html          # Entry HTML
+│       ├── package.json        # Dependencies
+│       ├── vite.config.js      # Vite configuration
+│       ├── public/             # Static assets
+│       └── src/
+│           ├── main.jsx        # App entry point
+│           ├── App.jsx         # Main app component
+│           ├── index.css       # Tailwind & Global styles
+│           └── components/     # Application components
+│               ├── Calculator.jsx
+│               ├── Display.jsx
+│               ├── Key.jsx
+│               └── KeyContainer.jsx
+
 ```
 
 ---
