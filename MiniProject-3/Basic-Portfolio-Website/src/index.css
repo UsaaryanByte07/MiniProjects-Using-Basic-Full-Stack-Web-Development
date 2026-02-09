@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+@media print {
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  button {
+    display: none; /* Hides the button in the PDF */
+  }
+}
+
 html, body, #root {
   height: 100%;
   width: 100%;

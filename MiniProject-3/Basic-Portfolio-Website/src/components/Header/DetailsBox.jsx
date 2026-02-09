@@ -1,6 +1,6 @@
 const DetailsBox = (props) => {
     return (
-        <div>
+        <div className="mx-4">
         <h1 className="text-white text-4xl font-bold">{props.name}</h1>
         <p className="text-white text-xl">{props.proffesion}</p>
         </div>
