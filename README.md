@@ -155,7 +155,8 @@ A modern, responsive portfolio website built with React, Vite, and Tailwind CSS 
 - 🏆 Educational achievements display
 - 🎨 Tech stack pills with visual indicators
 - 💼 Professional contact section
-- 🔧 Built with reusable React components
+- � Download printable resume/CV feature
+- �🔧 Built with reusable React components
 
 **Tech Stack:**
 ```
@@ -191,7 +192,6 @@ npm run dev
 - 🌐 Multi-language support (i18n)
 - 📈 Analytics integration (Google Analytics)
 - 🎨 Customizable color themes
-- 📥 Downloadable resume/CV feature
 
 ---
 
