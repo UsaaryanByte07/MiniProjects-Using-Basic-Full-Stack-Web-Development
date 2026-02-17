@@ -238,6 +238,67 @@ npm run dev
 
 ---
 
+### 5️⃣ Full Stack Todo App
+
+<img src="https://img.icons8.com/fluency/96/server.png" alt="Full Stack Todo" width="80"/>
+
+A robust full-stack application connecting a React frontend with an Express.js backend to manage tasks efficiently.
+
+**Features:**
+- 🔄 **Full Stack Integration:** Seamless communication between React frontend and Node.js backend.
+- 🎨 **Neumorphism Design:** Soft UI aesthetic using CSS shadows and gradients to mimic physical depth.
+- 🌙 **Dark Mode Toggle:** Persistent light/dark theme switcher using local storage and system preferences.
+- 🛡️ **Form Validation:** Comprehensive input validation to ensure no empty todos or missing dates are submitted.
+- ⚠️ **Custom Alert System:** Bespoke notification component for user feedback instead of default browser alerts.
+- ➕ **CRUD Operations:** Create, Read, and Delete tasks with instant UI updates.
+- ⚡ **Real-time State:** Centralized state management using Context API and Reducers.
+- 🌐 **API Connectivity:** Custom REST API endpoints served via Express.
+- 📱 **Responsive Design:** Optimized for various screen sizes, including mobile devices.
+
+**Tech Stack:**
+```
+Frontend: React 19 | Vite | Tailwind CSS 4 | Lucide React | CSS Variables
+Backend: Node.js | Express.js | CORS
+```
+
+**Live Demo:**
+This project requires running both backend and frontend servers:
+
+1. **Start Backend:**
+   ```bash
+   cd MiniProject-5/backend
+   node app.js
+   # Server runs on http://localhost:3000
+   ```
+
+2. **Start Frontend (New Terminal):**
+   ```bash
+   cd MiniProject-5/todo-app-using-react
+   npm install
+   npm run dev
+   # App runs on http://localhost:5173
+   ```
+
+**Key Learnings:**
+- Building and consuming REST APIs
+- Implementing Neumorphism design principles with CSS
+- Creating custom hooks for theme management (Dark/Light mode)
+- Handling complex form validation and user feedback
+- Connecting Frontend (React) with Backend (Express)
+- Handling CORS (Cross-Origin Resource Sharing)
+- Advanced State Management (Context + Reducer)
+- Asynchronous data fetching (useEffect, fetch API)
+- Backend routing and request handling
+
+#### 🚀 Future Implementations
+- 🔐 User Authentication (Login/Signup)
+- 🗄️ Database integration (MongoDB/PostgreSQL) instead of in-memory storage
+- ✏️ Edit task functionality
+- ✅ Toggle completion status with backend persistence
+- 📅 Due date notifications
+
+---
+
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -269,6 +330,9 @@ npm run dev
    
    # For Portfolio Website
    cd MiniProject-3/Basic-Portfolio-Website
+   
+   # For Full Stack Todo App
+   cd MiniProject-5
    ```
 
 4. **Run the project**
@@ -277,8 +341,22 @@ npm run dev
    - Simply open `index.html` in your web browser
    - Or use a local development server like Live Server in VS Code
    
-   **For MiniProject-3 (React App):**
+   **For MiniProject-3 & MiniProject-4 (React Apps):**
    ```bash
+   # Inside project folder
+   npm install
+   npm run dev
+   ```
+
+   **For MiniProject-5 (Full Stack App):**
+   ```bash
+   # Terminal 1: Start Backend
+   cd backend
+   npm install
+   node app.js
+
+   # Terminal 2: Start Frontend
+   cd ../todo-app-using-react
    npm install
    npm run dev
    ```
@@ -304,7 +382,7 @@ MiniProjects-Using-Basic-Full-Stack-Web-Development/
 │   └── styles/
 │       └── style.css           # Styling
 │
-└── MiniProject-3/              # Portfolio Website
+├── MiniProject-3/              # Portfolio Website
     └── Basic-Portfolio-Website/
         ├── index.html          # Entry HTML
         ├── package.json        # Dependencies
@@ -334,6 +412,21 @@ MiniProjects-Using-Basic-Full-Stack-Web-Development/
 │               ├── Display.jsx
 │               ├── Key.jsx
 │               └── KeyContainer.jsx
+│
+└── MiniProject-5/              # Full Stack Todo App
+    ├── backend/                # Node.js + Express
+    │   ├── app.js              # API Server
+    │   └── package.json        # Backend deps
+    │
+    └── todo-app-using-react/   # React Frontend
+        ├── index.html          # Entry HTML
+        ├── package.json        # Frontend deps
+        ├── vite.config.js      # Vite config
+        └── src/
+            ├── App.jsx         # Main component
+            ├── store/          # Context/Reducer
+            └── components/     # UI Components
+
 
 ```
 
@@ -349,6 +442,8 @@ MiniProjects-Using-Basic-Full-Stack-Web-Development/
 | ![React](https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=black) | UI component library |
 | ![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat&logo=vite&logoColor=white) | Build tool and dev server |
 | ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white) | Utility-first CSS framework |
+| ![NodeJS](https://img.shields.io/badge/Node.js-339933?style=flat&logo=nodedotjs&logoColor=white) | Backend runtime environment |
+| ![Express](https://img.shields.io/badge/Express.js-000000?style=flat&logo=express&logoColor=white) | Backend web framework |
 
 ---
 
@@ -375,6 +470,11 @@ Through these projects, you'll learn:
 - ✅ Build tools and module bundlers (Vite)
 - ✅ Package management with npm
 - ✅ Project configuration and setup
+- ✅ Building RESTful APIs with Express.js
+- ✅ Connecting frontend and backend applications
+- ✅ Handling HTTP methods (GET, POST, DELETE)
+- ✅ Managing CORS and full-stack environments
+
 
 ---
 

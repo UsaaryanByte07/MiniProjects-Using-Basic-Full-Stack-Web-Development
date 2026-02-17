@@ -1,1 +1,80 @@
 @import "tailwindcss";
+
+:root {
+  /* Light Theme (Existing) */
+  --bg-color: #F0F2F5;
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --accent-blue: #3B82F6;
+  --accent-red: #EF4444;
+  --accent-orange: #F97316;
+  
+  /* Neumorphism Shadows - Light */
+  --shadow-light: #ffffff;
+  --shadow-dark: #d1d9e6;
+  --border-color: rgba(255, 255, 255, 0.4);
+}
+
+.dark {
+  /* Dark Theme (Complementary) */
+  --bg-color: #2D3748; /* Dark Cool Grey */
+  --text-primary: #E2E8F0; /* Light Grey Text */
+  --text-secondary: #A0AEC0;
+  --accent-blue: #60A5FA; /* Lighter Blue for dark mode */
+  --accent-red: #F87171; /* Lighter Red */
+  --accent-orange: #FB923C;
+
+  /* Neumorphism Shadows - Dark */
+  /* For dark mode, "light" shadow is a lighter grey, "dark" shadow is black */
+  --shadow-light: #354155; /* Lighter part of the background */
+  --shadow-dark: #1A202C; /* Darker shadow (almost black) */
+  --border-color: rgba(255, 255, 255, 0.05);
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.neu-flat {
+    background: var(--bg-color);
+    box-shadow: 6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.neu-flat-sm {
+    background: var(--bg-color);
+    box-shadow: 3px 3px 6px var(--shadow-dark), -3px -3px 6px var(--shadow-light);
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.neu-pressed {
+    background: var(--bg-color);
+    box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
+    border: 1px solid transparent; /* Often pressed doesn't need border, but keeping for consistency */
+    transition: all 0.3s ease;
+}
+
+.neu-button {
+    background: var(--bg-color);
+    box-shadow: 5px 5px 10px var(--shadow-dark), -5px -5px 10px var(--shadow-light);
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease-in-out;
+}
+
+.neu-button:active {
+    box-shadow: inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light);
+    transform: translateY(1px);
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+}

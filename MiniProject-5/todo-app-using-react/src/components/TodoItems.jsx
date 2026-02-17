@@ -7,10 +7,10 @@ export const TodoItems = () => {
   const { todoArray } = useContext(TodoContext);
 
   return (
-    <div>
+    <div className="w-full flex justify-center flex-wrap my-5">
       <LoadTodos/>
-      {todoArray.map(() => {
-        return <TodoItem />;
+      {todoArray.map(({id, todoText, todoDate}) => {
+        return <TodoItem key={id} id={id} todoDate={todoDate} todoText={todoText}/>;
       })}
     </div>
   );
