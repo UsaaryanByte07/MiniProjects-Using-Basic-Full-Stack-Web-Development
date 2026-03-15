@@ -1,20 +1,25 @@
+const path = require('path');
 const Home = require("../models/Home");
-const Wishlist = require("../models/Wishlist")
+const { deleteFile, uploadsDir } = require('../utils/photo-storage-util');
 
 const getAddHome = (req, res, next) => {
   res.render("host/edit-or-add-home", {
     isEditing: false,
     pageTitle: "Add Home",
+    isLoggedIn: req.session.isLoggedIn,
+    user: req.session.user,
+    errorMsgs: [],
   });
 };
 
 const getHostHomes = async (req, res, next) => {
   try {
-    const addedHomes = await Home.find();
-    res.render("host/host-homes", { addedHomes, pageTitle: "Host Houses" });
+    const userId = req.session.user._id;
+    const addedHomes = await Home.find({host: userId});
+    res.render("host/host-homes", { addedHomes, pageTitle: "Host Houses", isLoggedIn: req.session.isLoggedIn, user: req.session.user});
   } catch (error) {
     console.log("Error fetching homes:", error.message);
-    res.render("host/host-homes", { addedHomes: [], pageTitle: "Host Houses" });
+    res.render("host/host-homes", { addedHomes: [], pageTitle: "Host Houses", isLoggedIn: req.session.isLoggedIn, user: req.session.user});
   }
 };
 
@@ -23,8 +28,7 @@ const getEditHome = async (req, res, next) => {
   const isEditing = req.query.isEditing === "true"; //As req.query.isEditing will give a string but we need a boolean
   try {
     if (!isEditing) {
-      res.redirect("/host/host-homes");
-      throw new Error("Editing flag not set properly");
+      return res.redirect("/host/host-homes");
     }
   } catch (err) {
     console.log(`${err.message}`);
@@ -36,6 +40,9 @@ const getEditHome = async (req, res, next) => {
       isEditing: isEditing,
       pageTitle: "Edit Home",
       home,
+      isLoggedIn: req.session.isLoggedIn,
+      user: req.session.user,
+      errorMsgs: [],
     });
   } catch (err) {
     console.log(`Error Occurred while getting Edit home Page: ${err.message}`);
@@ -45,19 +52,38 @@ const getEditHome = async (req, res, next) => {
 
 const postAddHome = async (req, res, next) => {
   try {
-    const { homeName, price, location, rating, photoUrl, description } = req.body;
-    const newHome = new Home({homeName, price, location, rating, photoUrl, description});
+    const userId = req.session.user._id;
+    const { homeName, price, location, rating, description } = req.body;
+    const photoUrl = req.file ? `/uploads/${req.file.filename}` : "";
+    const newHome = new Home({homeName, price, location, rating, photoUrl, description, host: userId});
     await newHome.save();
-    res.render("host/home-added", { pageTitle: "Home Added" });
+    res.render("host/home-added", { pageTitle: "Home Added", isLoggedIn: req.session.isLoggedIn , user: req.session.user});
   } catch (error) {
     console.log("Error Occurred while Writing the Data:", error.message);
+    res.render("host/edit-or-add-home", {
+    isEditing: false,
+    pageTitle: "Add Home",
+    isLoggedIn: req.session.isLoggedIn,
+    user: req.session.user,
+    errorMsgs: ["Error Occurred while Adding Home. Please Try Again."],
+  });
   }
 };
 
 const postEditHome = async (req, res, next) => {
   try {
-    const { homeName, price, location, rating, photoUrl, _id, description } = req.body;
-    await Home.findByIdAndUpdate(_id, {homeName, price, location, rating, photoUrl, description});
+    const { homeName, price, location, rating, _id, description } = req.body;
+    const updatedData = { homeName, price, location, rating, description };
+
+    if (req.file) {
+      const existingHome = await Home.findOne({ _id, host: req.session.user._id });
+      if (existingHome && existingHome.photoUrl) {
+        deleteFile(path.join(uploadsDir, path.basename(existingHome.photoUrl)));
+      }
+      updatedData.photoUrl = `/uploads/${req.file.filename}`;
+    }
+
+    await Home.findOneAndUpdate({ _id, host: req.session.user._id }, updatedData);
   } catch (error) {
     console.log("Error Occurred while Writing the Data:", error.message);
   }
@@ -67,7 +93,10 @@ const postEditHome = async (req, res, next) => {
 const postDeleteHome = async (req, res, next) => {
     try{
         const homeId = req.params.homeId;
-        await Home.findByIdAndDelete(homeId);
+        const home = await Home.findOneAndDelete({ _id: homeId, host: req.session.user._id });
+        if (home && home.photoUrl) {
+            deleteFile(path.join(uploadsDir, path.basename(home.photoUrl)));
+        }
     }catch(err){
         console.log(`${err.message}`);
     }

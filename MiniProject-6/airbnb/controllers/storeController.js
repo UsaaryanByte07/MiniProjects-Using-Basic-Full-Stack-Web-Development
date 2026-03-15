@@ -1,82 +1,152 @@
-const Home = require('../models/Home')
-const Wishlist = require('../models/Wishlist')
+const Home = require("../models/Home");
+const User = require("../models/User");
+const path = require('path')
+const rootDir = require('../utils/path-util');
 
-const getIndex = (req,res,next) => {
-    res.render('store/index', {pageTitle: 'Airbnb'});
-}
+const getIndex = (req, res, next) => {
+  res.render("store/index", {
+    pageTitle: "Airbnb",
+    isLoggedIn: req.session.isLoggedIn,
+    user: req.session.user,
+  });
+};
 
-const getHomes = async (req,res,next)=> {
-    try {
-        const addedHomes = await Home.find();
-        res.render('store/homes', {addedHomes, pageTitle: 'Houses'});
-    } catch (error) {
-        console.log('Error fetching homes:', error.message);
-        res.render('store/homes', {addedHomes: [], pageTitle: 'Houses'});
+const getHomes = async (req, res, next) => {
+  try {
+    const addedHomes = await Home.find();
+    const userId = req.session.user._id;
+    const wishlistHomes = await User.findById(userId).populate("wishlistHomes");
+    const homeIdArray = wishlistHomes.wishlistHomes.map((home) =>
+      home._id.toString(),
+    );
+    res.render("store/homes", {
+      addedHomes,
+      homeIdArray,
+      pageTitle: "Houses",
+      isLoggedIn: req.session.isLoggedIn,
+      user: req.session.user,
+    });
+  } catch (error) {
+    console.log("Error fetching homes:", error.message);
+    res.render("store/homes", {
+      addedHomes: [],
+      homeIdArray: [],
+      pageTitle: "Houses",
+      isLoggedIn: req.session.isLoggedIn,
+      user: req.session.user,
+    });
+  }
+};
+
+const getHomeDetails = async (req, res, next) => {
+  const homeId = req.params.homeId;
+  const userId = req.session.user._id;
+  try {
+    const wishlistHomes = await User.findById(userId).populate("wishlistHomes");
+    const homeIdArray = wishlistHomes.wishlistHomes.map((home) =>
+      home._id.toString(),
+    );
+    const home = await Home.findById(homeId);
+    res.render("store/home-details", {
+      home,
+      homeIdArray,
+      pageTitle: "Home Details",
+      isLoggedIn: req.session.isLoggedIn,
+      user: req.session.user,
+    });
+  } catch (error) {
+    console.log(`Error fetching home with home id ${homeId}`, error.message);
+    res.render("store/home-details", {
+      home: undefined,
+      homeIdArray: [],
+      pageTitle: "Home Not Found",
+      isLoggedIn: req.session.isLoggedIn,
+      user: req.session.user,
+    });
+  }
+};
+
+const getWishlist = async (req, res, next) => {
+  try {
+    const userId = req.session.user._id;
+    const wishlistHomes = await User.findById(userId).populate("wishlistHomes");
+    const wishlist = wishlistHomes.wishlistHomes.map((item) => item);
+    const homeIdArray = wishlistHomes.wishlistHomes.map((home) =>
+      home._id.toString(),
+    );
+    res.render("store/wishlist", {
+      wishlist,
+      homeIdArray,
+      pageTitle: "Wishlist",
+      isLoggedIn: req.session.isLoggedIn,
+      user: req.session.user,
+    });
+  } catch (error) {
+    console.log("Error fetching wishlist:", error.message);
+    res.render("store/wishlist", {
+      wishlist: [],
+      homeIdArray: [],
+      pageTitle: "Wishlist",
+      isLoggedIn: req.session.isLoggedIn,
+      user: req.session.user,
+    });
+  }
+};
+
+const postAddWishlist = async (req, res, next) => {
+  try {
+    const userId = req.session.user._id;
+    const homeId = req.body._id;
+    const user = await User.findOne({ _id: userId });
+    if (!user.wishlistHomes.map(id => id.toString()).includes(homeId)) {
+      user.wishlistHomes.push(homeId);
+      await user.save();
     }
-}
+  } catch (error) {
+    console.log(`Error adding to wishlist: ${error.message}`);
+  } finally {
+    res.redirect("/wishlist");
+  }
+};
 
-const getHomeDetails = async (req,res,next)=> {
-    const homeId = req.params.homeId;
-    try {
-        const home = await Home.findById(homeId);
-        res.render('store/home-details', {home, pageTitle: 'Home Details'});
-    } catch (error) {
-        console.log(`Error fetching home with home id ${homeId}`, error.message);
-        res.render('store/home-details', {home: undefined, pageTitle: 'Home Not Found'});
+const postRemoveWishlist = async (req, res, next) => {
+  try {
+    const homeId = req.body._id;
+    const userId = req.session.user._id;
+    const user = await User.findOne({ _id: userId });
+    if (user.wishlistHomes.map(id => id.toString()).includes(homeId)) {
+      user.wishlistHomes = user.wishlistHomes.filter((home) => home.toString() !== homeId);
+      await user.save();
     }
-}
+  } catch (error) {
+    console.log(`Error in removing from wishlist: ${error.message}`);
+  } finally {
+    res.redirect("/wishlist");
+  }
+};
 
-const getWishlist = async (req,res,next)=> {
-    try {
-        const wishlistHomes = await Wishlist.find().populate('homeId');
-        
-        /* POPULATE EXPLANATION:
-         * 1. WITHOUT .populate(): wishlistHomes = [{ _id: "...", homeId: "64a1b2c3d4e5f6" }] 
-         *    -> homeId contains just ObjectId reference
-         * 
-         * 2. WITH .populate('homeId'): wishlistHomes = [{ _id: "...", homeId: { _id: "64a1b2c3d4e5f6", homeName: "Villa", price: 200, location: "Paris", rating: 4.5, ... } }]
-         *    -> homeId now contains FULL Home document with all properties
-         * 
-         * 3. AFTER .map(item => item.homeId): wishlist = [{ _id: "64a1b2c3d4e5f6", homeName: "Villa", price: 200, location: "Paris", rating: 4.5, ... }]
-         *    -> Returns array of complete Home objects, NOT just IDs
-         *    -> EJS template receives full Home objects with homeName, price, location etc.
-         */
-        const wishlist = wishlistHomes.map(item => item.homeId);
-        res.render('store/wishlist', {wishlist, pageTitle: 'Wishlist'});
-    } catch (error) {
-        console.log('Error fetching wishlist:', error.message);
-        res.render('store/wishlist', {wishlist: [], pageTitle: 'Wishlist'});
+const getRules = [
+  (req, res, next) => {
+    if(!req.session.isLoggedIn){
+      return res.redirect('/login');
     }
-}
+    next();
+  },
+  (req, res, next) => {
+    const homeId = req.params.homeId; //For future Implementation
+    const rulesFileName = 'House_Rules.pdf';
+    // return res.sendFile(path.join(rootDir, 'public', 'rules', rulesFileName)); this hust opens the pdf in new tab
+    return res.download(path.join(rootDir, 'public', 'rules', rulesFileName), rulesFileName) //This Downloads the pdf file
+  }
+]
 
-const postAddWishlist = async (req,res,next)=> {
-    try {
-        const newWishlistItem = new Wishlist({homeId: req.body._id});
-        await newWishlistItem.save();
-        await Home.findByIdAndUpdate(req.body._id, {isInWishlist: 1});
-    } catch (error) {
-        console.log(`Error adding to wishlist: ${error.message}`);
-    } finally{
-        res.redirect('/wishlist')
-    }
-}
-
-const postRemoveWishlist = async (req,res,next)=> {
-    try {
-        const homeId = req.body._id;
-        await Wishlist.deleteOne({homeId});
-    } catch (error) {
-        console.log(`Error in removing from wishlist: ${error.message}`);
-    } finally{
-        res.redirect('/wishlist')
-    }
-}
 
 module.exports = {
-    getIndex,
-    getHomeDetails,
-    getHomes,
-    getWishlist,
-    postAddWishlist,
-    postRemoveWishlist,
-}
+  getIndex,
+  getHomeDetails,
+  getHomes,
+  getWishlist,
+  postAddWishlist,
+  postRemoveWishlist,
+  getRules
+};

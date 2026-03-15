@@ -1,6 +1,6 @@
 const express = require('express')
 const storeRouter = express.Router();
-const {getIndex, getHomeDetails, getHomes, postAddWishlist,postRemoveWishlist, getWishlist} = require('../controllers/storeController')
+const {getIndex, getHomeDetails, getHomes, postAddWishlist,postRemoveWishlist, getWishlist, getRules} = require('../controllers/storeController')
 
 storeRouter.get('/',getIndex)
 
@@ -12,5 +12,6 @@ storeRouter.get('/wishlist',getWishlist)
 
 storeRouter.post('/wishlist/add',postAddWishlist)
 storeRouter.post('/wishlist/remove',postRemoveWishlist)
+storeRouter.get('/rules/:homeId', getRules);
 
 module.exports = storeRouter;

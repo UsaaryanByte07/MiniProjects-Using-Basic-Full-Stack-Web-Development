@@ -117,7 +117,17 @@
                         </div>
                     </div>
 
+                    <div class="border-t border-gray-200 pt-8 mb-8">
+                        <a href="/rules/<%= home._id %>" class="inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-cyan-700 transition duration-200 shadow-lg">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16"></path>
+                            </svg>
+                            Download Home Rules
+                        </a>
+                    </div>
+
                     <!-- Action Buttons -->
+                     <%if(isLoggedIn && user.userType === "customer"){%>
                     <div class="border-t border-gray-200 pt-8">
                         <div class="flex flex-col sm:flex-row gap-4">
                             <button class="flex-1 bg-gradient-to-r from-pink-600 to-purple-600 text-white font-semibold py-4 px-8 rounded-lg hover:from-pink-700 hover:to-purple-700 transition duration-300 shadow-lg hover:shadow-xl">
@@ -127,10 +137,11 @@
                                 Reserve Now
                             </button>
                             <div class="flex-1">
-                                <%-include('../partials/add-or-remove-to-wishlist',{home})%>
+                                <%-include('../partials/add-or-remove-to-wishlist',{home, homeIdArray})%>
                             </div>
                         </div>
                     </div>
+                    <%}%>
                 </div>
             </div>
             
