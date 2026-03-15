@@ -299,6 +299,65 @@ This project requires running both backend and frontend servers:
 
 ---
 
+### 6️⃣ Airbnb Clone
+
+<img src="https://img.icons8.com/fluency/96/airbnb.png" alt="Airbnb Clone" width="80"/>
+
+A full-featured **Airbnb-inspired property rental platform** built with a classic MVC architecture using Node.js, Express 5, EJS, and MongoDB. Supports two distinct user roles — hosts who manage listings and customers who browse, wishlist, and book properties.
+
+**Features:**
+- 🔐 **Full Authentication System:** Signup with bcrypt password hashing, email-based OTP verification (5-minute expiry), login/logout with secure session management, and a complete forgot/reset password flow using crypto tokens.
+- 👥 **Dual-Role Access Control:** `host` and `customer` user types enforced at the router level — hosts manage listings, customers browse and build wishlists.
+- 🏠 **Host Portal:** Full CRUD for property listings — add, edit, and delete homes with photo uploads (multer). Old photos are removed from disk on edit/delete.
+- 🌐 **Customer Store:** Browse all listings, view detailed property pages, download House Rules (PDF), and manage a personal wishlist with add/remove functionality.
+- 💾 **Persistent Sessions:** Sessions are stored in MongoDB via `connect-mongo` and survive server restarts with a 15-day lifetime.
+- 📧 **Transactional Email:** Rich-HTML emails sent via Nodemailer/Gmail SMTP for OTP verification and password reset links.
+- 🛡️ **Server-Side Validation:** Comprehensive input validation using `express-validator` with strict password-strength rules (uppercase, lowercase, digit, special character).
+- 🎨 **Server-Side Rendering:** EJS templates with shared partials (navbar, head, wishlist button) styled using Tailwind CSS 4.
+- ⚖️ **Legal Pages:** Dedicated Terms & Conditions and Privacy Policy pages.
+- 🚫 **404 Handling:** Custom not-found page with proper HTTP 404 response.
+
+**Tech Stack:**
+```
+Node.js | Express 5 | EJS 4 | MongoDB Atlas | Mongoose 9 | bcryptjs
+express-session | connect-mongo | connect-flash | express-validator
+multer | nodemailer | Tailwind CSS 4 | nodemon | dotenv
+```
+
+**Live Demo:**
+```bash
+cd MiniProject-6/airbnb
+npm install
+# Add your .env file with DB credentials, session secret, and Gmail SMTP config
+npm run dev
+# App runs on http://localhost:3000
+```
+
+**Key Learnings:**
+- MVC architecture for server-side rendered applications
+- Role-based access control (RBAC) with session-based authentication
+- Secure password hashing with bcrypt and OTP-based email verification
+- Stateful session management with MongoDB-backed persistence
+- File upload handling with multer (disk storage, type filtering, cleanup)
+- Sending transactional emails with Nodemailer and Gmail SMTP
+- Server-side form validation with express-validator
+- Server-side rendering with EJS templates and partials
+- Mongoose schema design and population
+- connect-flash for one-time user feedback messages
+- Environment-based configuration with dotenv
+
+#### 🚀 Future Implementations
+- 📅 Property booking system with check-in/check-out date selection
+- 💳 Payment gateway integration (Stripe)
+- ⭐ User review and rating system for listings
+- 📍 Map integration for property locations
+- 🔍 Advanced search and filter (price range, location, rating)
+- 🖼️ Support for multiple photos per listing
+- 📊 Host dashboard with booking analytics
+- 🔔 Real-time notifications with Socket.IO
+
+---
+
 ## 🚀 Getting Started
 
 ### Prerequisites
@@ -333,6 +392,9 @@ This project requires running both backend and frontend servers:
    
    # For Full Stack Todo App
    cd MiniProject-5
+
+   # For Airbnb Clone
+   cd MiniProject-6/airbnb
    ```
 
 4. **Run the project**
@@ -359,6 +421,16 @@ This project requires running both backend and frontend servers:
    cd ../todo-app-using-react
    npm install
    npm run dev
+   ```
+
+   **For MiniProject-6 (Airbnb Clone):**
+   ```bash
+   cd MiniProject-6/airbnb
+   npm install
+   # Create a .env file with: MONGODB_USERNAME, MONGODB_PASSWORD, MONGODB_CLUSTER,
+   # MONGODB_DB, SESSION_SECRET, GMAIL_USER, GMAIL_APP_PASSWORD
+   npm run dev
+   # App runs on http://localhost:3000
    ```
 
 ---
@@ -413,19 +485,44 @@ MiniProjects-Using-Basic-Full-Stack-Web-Development/
 │               ├── Key.jsx
 │               └── KeyContainer.jsx
 │
-└── MiniProject-5/              # Full Stack Todo App
-    ├── backend/                # Node.js + Express
-    │   ├── app.js              # API Server
-    │   └── package.json        # Backend deps
-    │
-    └── todo-app-using-react/   # React Frontend
-        ├── index.html          # Entry HTML
-        ├── package.json        # Frontend deps
-        ├── vite.config.js      # Vite config
-        └── src/
-            ├── App.jsx         # Main component
-            ├── store/          # Context/Reducer
-            └── components/     # UI Components
+├── MiniProject-5/              # Full Stack Todo App
+│   ├── backend/                # Node.js + Express
+│   │   ├── app.js              # API Server
+│   │   └── package.json        # Backend deps
+│   │
+│   └── todo-app-using-react/   # React Frontend
+│       ├── index.html          # Entry HTML
+│       ├── package.json        # Frontend deps
+│       ├── vite.config.js      # Vite config
+│       └── src/
+│           ├── App.jsx         # Main component
+│           ├── store/          # Context/Reducer
+│           └── components/     # UI Components
+│
+└── MiniProject-6/              # Airbnb Clone
+    └── airbnb/
+        ├── App.js              # Express entry point
+        ├── package.json        # Dependencies
+        ├── nodemon.json        # Dev server config
+        ├── controllers/        # Route handler logic
+        │   ├── auth/           # Auth controllers
+        │   ├── hostController.js
+        │   ├── storeController.js
+        │   └── legalController.js
+        ├── models/             # Mongoose schemas
+        │   ├── User.js
+        │   └── Home.js
+        ├── routers/            # Express routers
+        ├── views/              # EJS templates
+        │   ├── partials/       # Shared partials
+        │   ├── auth/           # Auth pages
+        │   ├── store/          # Customer pages
+        │   ├── host/           # Host portal pages
+        │   ├── legal/          # Legal pages
+        │   └── error/          # Error pages
+        ├── utils/              # Helper utilities
+        ├── public/             # Static assets & CSS
+        └── uploads/            # Uploaded property photos
 
 
 ```
@@ -444,6 +541,10 @@ MiniProjects-Using-Basic-Full-Stack-Web-Development/
 | ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white) | Utility-first CSS framework |
 | ![NodeJS](https://img.shields.io/badge/Node.js-339933?style=flat&logo=nodedotjs&logoColor=white) | Backend runtime environment |
 | ![Express](https://img.shields.io/badge/Express.js-000000?style=flat&logo=express&logoColor=white) | Backend web framework |
+| ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=flat&logo=mongodb&logoColor=white) | NoSQL database |
+| ![Mongoose](https://img.shields.io/badge/Mongoose-880000?style=flat&logo=mongoose&logoColor=white) | MongoDB object modeling |
+| ![EJS](https://img.shields.io/badge/EJS-B4CA65?style=flat&logo=ejs&logoColor=black) | Server-side templating engine |
+| ![Nodemailer](https://img.shields.io/badge/Nodemailer-0F9DCE?style=flat&logo=maildotru&logoColor=white) | Transactional email via SMTP |
 
 ---
 
@@ -474,6 +575,17 @@ Through these projects, you'll learn:
 - ✅ Connecting frontend and backend applications
 - ✅ Handling HTTP methods (GET, POST, DELETE)
 - ✅ Managing CORS and full-stack environments
+- ✅ MVC architecture for server-side rendered applications
+- ✅ Role-based access control (RBAC) with session authentication
+- ✅ Secure password hashing with bcrypt
+- ✅ Email-based OTP verification and password reset flows
+- ✅ Session persistence with MongoDB-backed stores
+- ✅ File upload handling with multer (type validation & cleanup)
+- ✅ Sending transactional emails with Nodemailer
+- ✅ Server-side form validation with express-validator
+- ✅ Server-side rendering with EJS templates and partials
+- ✅ Mongoose schema design, querying, and population
+- ✅ Environment-based configuration with dotenv
 
 
 ---
