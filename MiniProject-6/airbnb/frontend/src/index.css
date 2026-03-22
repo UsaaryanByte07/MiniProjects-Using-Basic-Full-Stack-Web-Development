@@ -1,1 +1,46 @@
 @import "tailwindcss";
+
+@theme {
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-glass-bg: var(--glass-bg);
+  --color-glass-border: var(--glass-border);
+  --color-glass-text: var(--glass-text);
+  --color-glass-text-muted: var(--glass-text-muted);
+  --color-body-bg: var(--body-bg);
+  --color-body-bg-gradient-start: var(--body-bg-gradient-start);
+  --color-body-bg-gradient-end: var(--body-bg-gradient-end);
+}
+
+:root {
+  /* iPhone Glass UI Light Theme */
+  --body-bg-gradient-start: #e0c3fc;
+  --body-bg-gradient-end: #8ec5fc;
+  --body-bg: #f8fafc;
+  --glass-bg: rgba(255, 255, 255, 0.4);
+  --glass-border: rgba(255, 255, 255, 0.4);
+  --glass-text: #0f172a;
+  --glass-text-muted: #475569;
+  --primary: #ff385c;
+  --primary-hover: #e00b3e;
+}
+
+.dark {
+  /* iPhone Glass UI Dark Theme */
+  --body-bg-gradient-start: #0f172a;
+  --body-bg-gradient-end: #1e1b4b;
+  --body-bg: #0f172a;
+  --glass-bg: rgba(15, 23, 42, 0.5);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-text: #f8fafc;
+  --glass-text-muted: #94a3b8;
+  --primary: #ff385c;
+  --primary-hover: #e00b3e;
+}
+
+body {
+  background: linear-gradient(135deg, var(--color-body-bg-gradient-start) 0%, var(--color-body-bg-gradient-end) 100%);
+  background-attachment: fixed;
+  color: var(--color-glass-text);
+  min-height: 100vh;
+}

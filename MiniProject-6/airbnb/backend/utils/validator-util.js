@@ -55,8 +55,8 @@ const userTypeValidator = validator
   .check("userType")
   .notEmpty()
   .withMessage("User Type is Required")
-  .isIn(["host", "customer"])
-  .withMessage("User Type must be either Host or Customer");
+  .isIn(["host", "guest"])
+  .withMessage("User Type must be either Host or Guest");
 
 const termsValidator = validator
   .check("terms")

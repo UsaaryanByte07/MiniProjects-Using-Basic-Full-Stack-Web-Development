@@ -67,7 +67,7 @@ const putEditHome = async (req, res, next) => {
   try {
     if (req.file) {
       const existingHome = await Home.findOne({
-        _id,
+        _id: homeId,
         host: req.session.user._id,
       });
       if (existingHome && existingHome.photoUrl) {

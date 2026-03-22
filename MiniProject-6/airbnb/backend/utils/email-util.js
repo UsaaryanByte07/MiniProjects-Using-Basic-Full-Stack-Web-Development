@@ -1,38 +1,21 @@
 require("dotenv").config();
-const nodemailer = require('nodemailer')
+const {Resend} = require("resend");
 
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.EMAIL,
-    pass: process.env.GOOGLE_APP_PASSWORD,
-  },
-});
+const resend = new Resend(process.env.RESEND_API_KEY)
 
-const sendEmail = async (to, subject, text, html) => {
-  const mailOptions = {
-    from: process.env.EMAIL, 
-    to: to,
-    subject: subject,
-    text: text,
-    html: html
-  };
-
+const sendEmail = async (to, subject, html) => {
   try {
-    await transporter.sendMail(mailOptions);
-    return { success: true, message: 'Email sent' };
+    await resend.emails.send({
+      from: `Airbnb <no-reply@${process.env.DOMAIN}>`, 
+      to: [to],
+      subject,
+      html,
+    });
+    return { success: true, message: "Email sent" };
   } catch (error) {
-    if (error.response && error.response.includes('454 4.7.0')) {
-      console.error('\n🚨 GMAIL QUOTA EXCEEDED 🚨');
-      console.error('Error Code: 454 4.7.0');
-      console.error('Reason: You have hit the 500 recipients/day limit.');
-      console.error('Action Required: You must wait up to 24 hours for the quota to reset.\n');
-      
-      return { success: false, error: 'Quota exceeded', code: 454 };
-    } 
-    console.error('❌ Failed to send email:', error.message);
-    return { success: false, error: error.message };
+    console.error("Error sending email:", error.message);
+    return { success: false, message: "Failed to send email" };
   }
 };
 
-module.exports = {sendEmail}
+module.exports = { sendEmail };

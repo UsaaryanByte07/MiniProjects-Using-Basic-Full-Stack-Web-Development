@@ -303,48 +303,57 @@ This project requires running both backend and frontend servers:
 
 <img src="https://img.icons8.com/fluency/96/airbnb.png" alt="Airbnb Clone" width="80"/>
 
-A full-featured **Airbnb-inspired property rental platform** built with a classic MVC architecture using Node.js, Express 5, EJS, and MongoDB. Supports two distinct user roles — hosts who manage listings and customers who browse, wishlist, and book properties.
+A full-featured **Airbnb-inspired property rental platform** fully migrated to the modern **MERN stack** (MongoDB, Express.js, React, Node.js). Supports two distinct user roles — hosts who manage listings and customers who browse, wishlist, and book properties.
 
 **Features:**
-- 🔐 **Full Authentication System:** Signup with bcrypt password hashing, email-based OTP verification (5-minute expiry), login/logout with secure session management, and a complete forgot/reset password flow using crypto tokens.
-- 👥 **Dual-Role Access Control:** `host` and `customer` user types enforced at the router level — hosts manage listings, customers browse and build wishlists.
+- 🔐 **Full Authentication System:** Signup with bcrypt password hashing, OTP verification via email, login/logout with secure session management, and a complete forgot/reset password flow.
+- 👥 **Dual-Role Access Control:** `host` and `customer` user types enforced at both frontend and backend router levels — hosts manage listings, customers browse and build wishlists.
 - 🏠 **Host Portal:** Full CRUD for property listings — add, edit, and delete homes with photo uploads (multer). Old photos are removed from disk on edit/delete.
-- 🌐 **Customer Store:** Browse all listings, view detailed property pages, download House Rules (PDF), and manage a personal wishlist with add/remove functionality.
-- 💾 **Persistent Sessions:** Sessions are stored in MongoDB via `connect-mongo` and survive server restarts with a 15-day lifetime.
-- 📧 **Transactional Email:** Rich-HTML emails sent via Nodemailer/Gmail SMTP for OTP verification and password reset links.
-- 🛡️ **Server-Side Validation:** Comprehensive input validation using `express-validator` with strict password-strength rules (uppercase, lowercase, digit, special character).
-- 🎨 **Server-Side Rendering:** EJS templates with shared partials (navbar, head, wishlist button) styled using Tailwind CSS 4.
+- 🌐 **Customer Store:** Browse all listings, view detailed property pages, and manage a personal wishlist with add/remove functionality.
+- 💾 **Persistent Sessions:** Sessions state is maintained securely using MongoDB-backed stores via `connect-mongo`.
+- 📧 **Transactional Email:** Rich-HTML emails sent via Resend for OTP verification and password reset links.
+- 🛡️ **Validation & Security:** Comprehensive input validation with `express-validator` and properly secured backend REST API.
+- 🎨 **Modern Frontend:** React 19 single-page application built with Vite, styled with Tailwind CSS 4, utilizing React Router DOM for seamless navigation.
 - ⚖️ **Legal Pages:** Dedicated Terms & Conditions and Privacy Policy pages.
-- 🚫 **404 Handling:** Custom not-found page with proper HTTP 404 response.
 
 **Tech Stack:**
+
 ```
-Node.js | Express 5 | EJS 4 | MongoDB Atlas | Mongoose 9 | bcryptjs
-express-session | connect-mongo | connect-flash | express-validator
-multer | nodemailer | Tailwind CSS 4 | nodemon | dotenv
+Frontend: React 19 | Vite | Tailwind CSS 4 | React Router DOM
+Backend: Node.js | Express 5 | MongoDB Atlas | Mongoose 9 | bcryptjs | express-session | connect-mongo | express-validator | multer | resend | cors | dotenv
 ```
 
 **Live Demo:**
-```bash
-cd MiniProject-6/airbnb
-npm install
-# Add your .env file with DB credentials, session secret, and Gmail SMTP config
-npm run dev
-# App runs on http://localhost:3000
-```
+This project requires running both backend and frontend servers:
+
+1. **Start Backend:**
+   ```bash
+   cd MiniProject-6/airbnb/backend
+   npm install
+   # Create a .env file with necessary credentials
+   npm run dev
+   # API Server runs on http://localhost:3010
+   ```
+
+2. **Start Frontend (New Terminal):**
+   ```bash
+   cd MiniProject-6/airbnb/frontend
+   npm install
+   npm run dev
+   # App runs on http://localhost:5173
+   ```
 
 **Key Learnings:**
-- MVC architecture for server-side rendered applications
-- Role-based access control (RBAC) with session-based authentication
-- Secure password hashing with bcrypt and OTP-based email verification
-- Stateful session management with MongoDB-backed persistence
-- File upload handling with multer (disk storage, type filtering, cleanup)
-- Sending transactional emails with Nodemailer and Gmail SMTP
-- Server-side form validation with express-validator
-- Server-side rendering with EJS templates and partials
-- Mongoose schema design and population
-- connect-flash for one-time user feedback messages
-- Environment-based configuration with dotenv
+- MERN Stack (MongoDB, Express, React, Node) architecture
+- Building decoupled client-server applications with REST APIs
+- Implementing Context API for global state management in React
+- Managing cross-origin resource sharing (CORS) between frontend and backend
+- Secure role-based access control and session management
+- File upload handling with multer and static serving via Express
+- Sending transactional emails via Resend API
+- Client-side routing with React Router v7
+- Styling React components using Tailwind CSS
+- Validating API requests using express-validator
 
 #### 🚀 Future Implementations
 - 📅 Property booking system with check-in/check-out date selection
@@ -425,12 +434,16 @@ npm run dev
 
    **For MiniProject-6 (Airbnb Clone):**
    ```bash
-   cd MiniProject-6/airbnb
+   # Terminal 1: Start Backend
+   cd MiniProject-6/airbnb/backend
    npm install
-   # Create a .env file with: MONGODB_USERNAME, MONGODB_PASSWORD, MONGODB_CLUSTER,
-   # MONGODB_DB, SESSION_SECRET, GMAIL_USER, GMAIL_APP_PASSWORD
+   # Create a .env file with DB DB, Session and Email API credentials
    npm run dev
-   # App runs on http://localhost:3000
+   
+   # Terminal 2: Start Frontend
+   cd ../frontend
+   npm install
+   npm run dev
    ```
 
 ---
@@ -501,28 +514,24 @@ MiniProjects-Using-Basic-Full-Stack-Web-Development/
 │
 └── MiniProject-6/              # Airbnb Clone
     └── airbnb/
-        ├── App.js              # Express entry point
-        ├── package.json        # Dependencies
-        ├── nodemon.json        # Dev server config
-        ├── controllers/        # Route handler logic
-        │   ├── auth/           # Auth controllers
-        │   ├── hostController.js
-        │   ├── storeController.js
-        │   └── legalController.js
-        ├── models/             # Mongoose schemas
-        │   ├── User.js
-        │   └── Home.js
-        ├── routers/            # Express routers
-        ├── views/              # EJS templates
-        │   ├── partials/       # Shared partials
-        │   ├── auth/           # Auth pages
-        │   ├── store/          # Customer pages
-        │   ├── host/           # Host portal pages
-        │   ├── legal/          # Legal pages
-        │   └── error/          # Error pages
-        ├── utils/              # Helper utilities
-        ├── public/             # Static assets & CSS
-        └── uploads/            # Uploaded property photos
+        ├── backend/            # Express.js REST API
+        │   ├── app.js          # API Server entry point
+        │   ├── package.json    # Backend dependencies
+        │   ├── controllers/    # Route handlers
+        │   ├── models/         # Mongoose schemas
+        │   ├── routers/        # Express routers
+        │   ├── utils/          # Helper utilities
+        │   └── uploads/        # Uploaded property photos
+        │
+        └── frontend/           # React SPAs
+            ├── package.json    # Frontend dependencies
+            ├── src/            # React Code
+            │   ├── App.jsx     # App component and Routes
+            │   ├── components/ # Reusable UI components
+            │   ├── pages/      # Page components
+            │   ├── store/      # React context state
+            │   └── main.jsx    # React entry point
+            └── index.html
 
 
 ```

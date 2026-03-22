@@ -66,6 +66,11 @@ const postLogin = async (req, res, next) => {
           },
         });
       });
+    } else {
+      return res.status(401).json({
+        message: "Invalid email or password",
+        success: false,
+      });
     }
   } catch (err) {
     console.log("Login error:", err);

@@ -2,12 +2,12 @@
 
 # 🏠 Airbnb Clone
 
-### *A full-stack property rental platform built with Node.js, Express & MongoDB*
+### *A full-stack property rental platform built with the MERN stack (MongoDB, Express, React, Node.js)*
 
 ![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)
 ![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
-![EJS](https://img.shields.io/badge/EJS-B4CA65?style=for-the-badge&logo=ejs&logoColor=black)
+![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black)
 ![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
 </div>
@@ -37,19 +37,19 @@
 <tr>
 <td>
 
-**🔐 Authentication**
+**🔐 Authentication (JWT / Session)**
 - Email + Password Signup
-- OTP-based email verification
+- OTP-based email verification via Resend
 - Secure login with bcrypt hashing
 - Forgot & reset password via email link
-- Persistent sessions (15-day cookies)
+- Persistent sessions (MongoDB stored)
 
 </td>
 <td>
 
 **🏡 Host Portal**
 - Add new property listings
-- Upload property photos
+- Upload property photos (multer)
 - Edit listing details
 - Delete listings (auto-cleans image)
 - Host-only dashboard
@@ -64,16 +64,16 @@
 - View detailed property info
 - Add / remove from wishlist
 - Download House Rules PDF
-- Customer-only protected routes
+- Protected customer functionality
 
 </td>
 <td>
 
 **🛡️ Security & UX**
-- Role-based route guards
-- Flash messages for feedback
-- Server-side form validation
-- Email notifications (Nodemailer)
+- Role-based React route guards
+- Context API for State Management
+- Server-side form validation (express-validator)
+- Email notifications (Resend)
 - File type enforcement on uploads
 
 </td>
@@ -86,27 +86,27 @@
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
-│                        Client (Browser)                       │
-│                       EJS + Tailwind CSS                      │
+│                    Frontend (React + Vite)                   │
+│          React Router DOM + Context API + Tailwind CSS       │
 └────────────────────────────┬─────────────────────────────────┘
-                             │  HTTP Requests
+                             │  REST API Calls
 ┌────────────────────────────▼─────────────────────────────────┐
-│                      Express App (App.js)                      │
+│                    Backend (Express App)                     │
 │  ┌──────────────┐  ┌────────────┐  ┌────────────────────────┐ │
 │  │ Middleware   │  │  Session   │  │   Route Guards         │ │
 │  │ body-parser  │  │ connect-   │  │ /host  → host only     │ │
 │  │ multer       │  │ mongo      │  │ /homes → customer only │ │
-│  │ connect-flash│  │            │  │ /login → logged-out    │ │
+│  │ cors         │  │            │  │ auth   → auth checks   │ │
 │  └──────────────┘  └────────────┘  └────────────────────────┘ │
 ├──────────────────────────────────────────────────────────────┤
 │                           Routers                             │
 │   authRouter  │  storeRouter  │  hostRouter  │  legalRouter  │
 ├──────────────────────────────────────────────────────────────┤
 │                         Controllers                           │
-│  signupCtrl │ loginCtrl │ hostCtrl │ storeCtrl │ otpCtrl     │
+│  auth controllers │ host controllers │ store controllers      │
 ├──────────────────────────────────────────────────────────────┤
 │                     Utilities / Services                      │
-│  email-util │ photo-storage-util │ validator-util │ db-util  │
+│  email-util (Resend) │ photo-storage │ validator │ db-util    │
 ├──────────────────────────────────────────────────────────────┤
 │                          MongoDB                              │
 │              User Model          Home Model                   │
@@ -120,172 +120,87 @@
 ```
 airbnb/
 │
-├── App.js                    # 🚀 App entry point — middleware, routes, DB connect
+├── backend/                  # 🚀 Express API Server
+│   ├── app.js                # Entry point — middleware, routes, DB connect
+│   ├── controllers/          # Route logic
+│   ├── routers/              # Express routers
+│   ├── models/               # Mongoose schemas (User, Home)
+│   ├── utils/                # Helper utilities (email, db, multer)
+│   ├── uploads/              # Uploaded property photos
+│   └── package.json
 │
-├── controllers/
-│   ├── auth/
-│   │   ├── signupController.js       # Signup + OTP generation + email send
-│   │   ├── loginController.js        # Login/logout logic
-│   │   ├── verifyOtpController.js    # OTP verification
-│   │   └── forgetPasswordController.js # Forgot/reset password
-│   ├── hostController.js             # Add, edit, delete home listings
-│   ├── storeController.js            # Browse homes, wishlist, home details
-│   └── legalController.js            # Legal pages
-│
-├── routers/
-│   ├── authRouter.js         # /login, /signup, /verify-otp, /forgot-password
-│   ├── hostRouter.js         # /host/add-home, /host/edit-home, /host/host-homes
-│   ├── storeRouter.js        # /, /homes, /homes/:id, /wishlist
-│   ├── legalRouter.js        # Legal pages
-│   └── notFoundRouter.js     # 404 catch-all
-│
-├── models/
-│   ├── User.js               # User schema (auth + wishlist)
-│   └── Home.js               # Home listing schema
-│
-├── views/                    # EJS templates
-│   ├── auth/                 # signup, login, verify-otp, forgot/reset password
-│   ├── store/                # index, homes, home-details, wishlist
-│   ├── host/                 # host-homes, edit-or-add-home, home-added
-│   ├── partials/             # navbar, head, shared components
-│   ├── legal/                # terms, privacy
-│   └── error/                # 404 page
-│
-├── utils/
-│   ├── db-util.js            # MongoDB connection URL
-│   ├── email-util.js         # Nodemailer transporter
-│   ├── photo-storage-util.js # Multer storage + file filter
-│   ├── session-util.js       # connect-mongo session store
-│   ├── path-util.js          # Root directory helper
-│   └── validator-util.js     # express-validator validators
-│
-├── public/                   # Static assets (CSS, JS, images, PDF rules)
-└── uploads/                  # Uploaded property photos (auto-created)
+└── frontend/                 # 💻 React Client
+    ├── src/
+    │   ├── components/       # Reusable components
+    │   ├── pages/            # View pages (Auth, Home, Host, Store)
+    │   ├── store/            # React context state management
+    │   ├── App.jsx           # App routing with React Router
+    │   └── main.jsx          # Entry point
+    ├── index.html
+    ├── vite.config.js        # Vite build configuration
+    └── package.json
 ```
 
 ---
 
 ## ⚙️ How It Works
 
-### 1. Application Bootstrap (`App.js`)
-The app starts by connecting to MongoDB, then:
-- Serves static files from `/public` and `/uploads`
-- Applies `body-parser` for form data and `multer` for file uploads
-- Sets up `express-session` backed by MongoDB (`connect-mongo`) for persistent 15-day sessions
-- Registers route guards as middleware *before* the routers
-- Mounts all routers
+### 1. Application Bootstrap
+The application is split into a frontend and backend. The React app is served separately from the Express API, making API calls to `/` endpoints.
 
 ### 2. Role-Based Route Guards
-Before any protected route is reached, inline middleware in `App.js` enforces access:
+Both the frontend and backend enforce access:
+- **Backend**: API endpoints check session state and user type before executing queries.
+- **Frontend**: Protected routes redirect users based on their auth context and role (`guest`, `customer`, `host`).
 
-| Route | Rule |
-|---|---|
-| `/host/*` | Must be logged in **and** be a `host` |
-| `/homes/*` | Must be logged in **and** be a `customer` |
-| `/wishlist/*` | Must be logged in **and** be a `customer` |
-| `/login`, `/signup` | Must **not** be logged in (redirects away if already logged in) |
-
-### 3. Request Flow Example (Adding a Home)
-```
-Browser  →  POST /host/add-home
-          →  Route guard: isLoggedIn && userType === 'host'? ✅
-          →  hostRouter → postAddHome controller
-          →  Multer processes uploaded photo → saves to /uploads/
-          →  New Home document saved to MongoDB (with host's userId)
-          →  res.render("host/home-added")
-```
+### 3. State Management
+The React frontend utilizes the **Context API** to maintain user session state across components, updating seamlessly across the SPA.
 
 ---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- **Node.js** v16+ and **npm**
-- A running **MongoDB** instance (local or MongoDB Atlas)
-- A **Gmail account** with an [App Password](https://myaccount.google.com/apppasswords) for sending emails
+- **Node.js** v18+ and **npm**
+- A running **MongoDB** instance
+- A **Resend** account for sending emails
 
 ### Installation
 
+1. **Clone the repository**
 ```bash
-# 1. Clone the repository
 git clone <your-repo-url>
 cd airbnb
-
-# 2. Install dependencies
-npm install
-
-# 3. Set up environment variables
-cp .env.example .env  # or create .env manually (see below)
-
-# 4. Start the development server
-npm run dev
-# or
-node App.js
 ```
 
-The server starts at **http://localhost:3010**
+2. **Backend Setup**
+```bash
+cd backend
+npm install
+cp .env.example .env  # Or create a .env with credentials
+npm run dev
+# API runs on http://localhost:3010
+```
+
+3. **Frontend Setup**
+```bash
+cd ../frontend
+npm install
+npm run dev
+# React App runs on http://localhost:5173
+```
 
 ---
 
 ## 🔧 Environment Variables
 
-Create a `.env` file in the project root:
-
+### Backend `.env`
 ```env
-# MongoDB
 MONGO_URI=mongodb://localhost:27017/airbnb
-# or MongoDB Atlas:
-# MONGO_URI=mongodb+srv://<user>:<password>@cluster.mongodb.net/airbnb
-
-# Session
 SESSION_SECRET_KEY=your_super_secret_key_here
-
-# Email (Gmail + App Password)
-EMAIL=youremail@gmail.com
-GOOGLE_APP_PASSWORD=your_16_char_app_password
+RESEND_API_KEY=re_your_resend_api_key
+DOMAIN=yourdomain.com
 ```
-
-> **⚠️ Gmail Setup:** You must enable 2FA on your Google account and generate an **App Password** (not your normal Gmail password) for Nodemailer to work.
-
----
-
-## 🛣️ API Routes
-
-### Auth Routes (`/`)
-| Method | Path | Description | Access |
-|---|---|---|---|
-| `GET` | `/signup` | Signup page | Guest only |
-| `POST` | `/signup` | Register new user → sends OTP | Guest only |
-| `GET` | `/verify-otp?email=` | OTP verification page | Guest only |
-| `POST` | `/verify-otp` | Verify OTP → activate account | Guest only |
-| `GET` | `/login` | Login page | Guest only |
-| `POST` | `/login` | Authenticate user | Guest only |
-| `POST` | `/logout` | Destroy session | Logged in |
-| `GET` | `/forgot-password` | Forgot password page | Public |
-| `POST` | `/forgot-password` | Send reset email | Public |
-| `GET` | `/reset-password?token=&email=` | Reset password page | Public |
-| `POST` | `/reset-password` | Update password | Public |
-
-### Store Routes (Customer)
-| Method | Path | Description | Access |
-|---|---|---|---|
-| `GET` | `/` | Landing page | Public |
-| `GET` | `/homes` | Browse all listings | Customer |
-| `GET` | `/homes/:homeId` | View home details | Customer |
-| `GET` | `/wishlist` | View wishlist | Customer |
-| `POST` | `/wishlist/add` | Add home to wishlist | Customer |
-| `POST` | `/wishlist/remove` | Remove from wishlist | Customer |
-| `GET` | `/rules/:homeId` | Download House Rules PDF | Logged in |
-
-### Host Routes (`/host/`)
-| Method | Path | Description | Access |
-|---|---|---|---|
-| `GET` | `/host/host-homes` | Host dashboard | Host |
-| `GET` | `/host/add-home` | Add home form | Host |
-| `POST` | `/host/add-home` | Create new listing | Host |
-| `GET` | `/host/edit-home/:homeId?isEditing=true` | Edit home form | Host |
-| `POST` | `/host/edit-home` | Save edits | Host |
-| `POST` | `/host/delete-home/:homeId` | Delete listing | Host |
 
 ---
 
@@ -294,47 +209,36 @@ GOOGLE_APP_PASSWORD=your_16_char_app_password
 ```
 ┌─────────────┐     ┌────────────────┐     ┌──────────────────┐
 │   Signup    │────▶│  Save to DB    │────▶│  Send OTP Email  │
-│  (POST)     │     │ (unverified)   │     │  (Nodemailer)    │
+│(React Form) │     │ (unverified)   │     │   (Resend API)   │
 └─────────────┘     └────────────────┘     └──────────────────┘
                                                     │
                                            ┌────────▼─────────┐
-                                           │  User enters OTP │
+                                           │ User enters OTP  │
                                            │  (5 min expiry)  │
                                            └────────┬─────────┘
                                                     │ OTP match?
                                            ┌────────▼─────────┐
-                                           │  isVerified=true │
-                                           │  → Redirect Login│
+                                           │ isVerified=true  │
+                                           │ → Redirect Login │
                                            └──────────────────┘
 ```
 
 **Password Reset Flow:**
-```
 Forgot Password → Email → Crypto token (5 min) → Reset link → New password hashed with bcrypt
-```
 
 ---
 
 ## 🏡 Host Features
-
-After logging in as a **host**, navigate to `/host/host-homes`:
-
-1. **Add a Home** — Fill in name, price, location, rating, description, and upload a photo (`JPG/PNG` only). The photo is stored in the `/uploads/` directory and served statically.
-
-2. **Edit a Home** — Click Edit on any listing. If you upload a new photo, the old one is **automatically deleted from disk**.
-
-3. **Delete a Home** — Removes the MongoDB document **and** deletes the associated photo from disk.
+- **Add a Home** — Fill in property details and upload a photo. Uses `multer` for disk storage on the backend API.
+- **Edit a Home** — Edits listing. Old photos are intelligently garbage collected from the server disk.
+- **Delete a Home** — Removes document and photo file.
 
 ---
 
 ## 🛒 Customer Features
-
-After logging in as a **customer**, navigate to `/homes`:
-
-1. **Browse Homes** — See all listings with photo, name, location, rating, and price.
-2. **Home Details** — Click any listing to see the full description and booking info.
-3. **Wishlist** — Add/remove homes to your personal wishlist. A heart icon shows which homes are already saved.
-4. **House Rules PDF** — Download the property rules PDF directly from the home details page.
+- **Browse Homes** — Browse properties fetched through frontend API requests.
+- **Home Details** — Deep dive into listing info, download legal docs.
+- **Wishlist** — Instantly add to or remove from wishlist asynchronously using Context state updates.
 
 ---
 
@@ -377,37 +281,18 @@ After logging in as a **customer**, navigate to `/homes`:
 | Concern | Implementation |
 |---|---|
 | Password storage | `bcryptjs` with 12 salt rounds |
-| Session management | `express-session` + `connect-mongo` (server-side) |
+| Session management | `express-session` + `connect-mongo` |
+| Email Service | Real transactional email with `Resend` |
 | OTP expiry | 5-minute window, cleared after use |
 | Reset tokens | `crypto.randomBytes(32)` with 5-minute expiry |
-| Route protection | Inline middleware before router mounts |
-| File upload safety | MIME type enforcement (JPG / JPEG / PNG only) |
-| Input validation | `express-validator` on all POST forms |
-| Host data isolation | All home queries include `host: userId` filter |
-
----
-
-## 📦 Key Dependencies
-
-| Package | Purpose |
-|---|---|
-| `express` | Web framework |
-| `mongoose` | MongoDB ODM |
-| `express-session` | Session management |
-| `connect-mongo` | Persist sessions in MongoDB |
-| `bcryptjs` | Password hashing |
-| `nodemailer` | Sending emails (OTP/reset) |
-| `multer` | File upload handling |
-| `connect-flash` | Temporary session messages |
-| `express-validator` | Form validation |
-| `ejs` | Server-side templating |
-| `dotenv` | Environment variable loading |
-| `nodemon` | Dev server auto-restart |
+| Route protection | Backend middleware guards & React Router Context checks |
+| File upload safety | MIME type enforcement |
+| Input validation | `express-validator` on API endpoints |
 
 ---
 
 <div align="center">
 
-Made with ❤️ using **Node.js**, **Express**, **MongoDB** & **EJS**
+Made with ❤️ using **MERN Stack** (MongoDB, Express, React, Node)
 
 </div>
